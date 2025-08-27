@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Explore new trip{% endblock title %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <h1 class="mb-4">Available Travel Packages</h1>
+    <form method="post">
+        {% csrf_token %}
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            {% for package in packages %}
+            <div class="col">
+                <div class="card h-100">
+                    {% if package.image_url %}
+                    <img src="{{ package.image_url }}" class="card-img-top" alt="{{ package.name }}">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ package.name }}</h5>
+                        <p class="card-text">{{ package.description }}</p>
+                        <p class="card-text"><strong>Price:</strong> &#8377; {{ package.price }}</p>
+                        <div class="form-check">
+                            {% if package.package_id in user_packages %}
+    <span class="badge bg-success">Already Booked</span>
+{% else %}
+    <a href="{% url 'package_detail' package.package_id %}" class="btn btn-primary">
+        View Details
+    </a>
+{% endif %}
+
+
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <p>No travel packages available.</p>
+                {% endfor %}
+            </div>
+    </form>
+</div>
+
+{% endblock content %}

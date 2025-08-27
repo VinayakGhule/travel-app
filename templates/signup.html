@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block title %}Signup for free{% endblock title %}
+
+{% block content %}
+
+<div class="signup-container container mt-5" style="max-width: 500px;">
+    <a href="{% url 'login' %}" class="btn btn-link mb-3">&larr; Back to Login</a>
+    <h2 class="text-center mb-4">Sign Up</h2>
+    <form method="post">
+        {% csrf_token %}
+        <div class="row mb-3">
+            <div class="col-12">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" id="email" name="email" class="form-control" required>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-12">
+                <label for="username" class="form-label">Username</label>
+                <div class="input-group">
+                    <span class="input-group-text" id="username-addon">@</span>
+                    <input type="text" id="username" name="username" class="form-control" required
+                    aria-describedby="username-addon">
+                </div>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-6 mb-3 mb-md-0">
+                <label for="first_name" class="form-label">First Name</label>
+                <input type="text" id="first_name" name="first_name" class="form-control" required>
+            </div>
+            <div class="col-md-6">
+                <label for="last_name" class="form-label">Last Name</label>
+                <input type="text" id="last_name" name="last_name" class="form-control" required>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-12">
+                <label for="phone" class="form-label">Phone Number</label>
+                <input type="text" class="form-control" name="phone" {% comment %} pattern="\d{10}" {% endcomment %}
+                id="phone" inputmode="numeric" maxlength="10" minlength="10" placeholder="Enter phone number"
+                required>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-12">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" id="password" name="password" class="form-control" required>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary w-100">Sign Up</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+    document.getElementById("phone").addEventListener("keypress", function (e) {
+        if (!/[0-9]/.test(e.key)) {
+            e.preventDefault();
+        }
+    });
+    document.getElementById("first_name").addEventListener("keypress", function (e) {
+        if (!/[a-zA-Z]/.test(e.key)) {
+            e.preventDefault();
+        }
+    });
+    document.getElementById("last_name").addEventListener("keypress", function (e) {
+        if (!/[a-zA-Z]/.test(e.key)) {
+            e.preventDefault();
+        }
+    });
+    
+</script>
+
+{% endblock content %}
